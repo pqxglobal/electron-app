@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, shell } = require('electron');
 const path = require("path");
 
 const menuItems = [
@@ -14,13 +14,46 @@ const menuItems = [
     label: "File",
     submenu: [
       {
-        label: "Learn More"
+        label: "Open Camera",
+        click: async () => {
+          const win2 = new BrowserWindow({
+            height: 300,
+            width: 400,
+            show: false,
+            backgroundColor: '#2e2c29',
+            movable: false
+          });
+
+          win2.loadFile('camera.html')
+          // win2.loadURL("https://bitfumes.com");
+          win2.once('ready-to-show', () => {
+            win2.show();
+          });
+        }
+      },
+      {
+        label: "Learn More",
+        click: async () => {
+          await shell.openExternal("https://bitfumes.com");
+        }
       },
       {
         type: "separator"
       },
       {
-        label: "Exit"
+        label: "Exit",
+        click: () => app.quit(),
+      },
+    ]
+  },
+  {
+    label: "Window",
+    submenu: [
+      {
+        role: "minimize"
+      },
+      {
+        role: "close"
       }
     ]
   }
