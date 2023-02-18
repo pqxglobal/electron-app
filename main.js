@@ -24,6 +24,7 @@ const menuItems = [
             movable: false
           });
 
+          // win2.webContents.openDevTools();
           win2.loadFile('camera.html')
           // win2.loadURL("https://bitfumes.com");
           win2.once('ready-to-show', () => {
